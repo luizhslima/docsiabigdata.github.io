@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdocsiabigdata_github_io_git=self.webpackChunkdocsiabigdata_github_io_git||[]).push([["3220"],{1912(t){t.exports=JSON.parse('{"blogBasePath":"/blog","blogTitle":"Blog","authorsListPath":"/blog/authors"}')}}]);
