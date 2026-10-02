@@ -1,43 +1,45 @@
-# Website
+Com toda a certeza! Ter o guião do que falar (o seu "teleprompter") é a parte mais importante para garantir que você crava o tempo de 10 minutos com segurança e sem nervosismo.
 
-This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
+Como a sua defesa é muito técnica, o seu tom de voz deve ser o de um Arquiteto de Software apresentando uma solução para a diretoria: pragmático, direto e focado no problema resolvido.
 
-## Installation
+Aqui está o roteiro completo, palavra por palavra, estruturado para durar cerca de **10 minutos**. Você pode imprimir isso ou usar como base para os seus ensaios:
 
-```bash
-npm install
-```
+---
 
-**Note**: feel free to use the package manager of your choice.
+### Roteiro de Fala para a Defesa (10 Minutos)
 
-## Local Development
+**Slide 1: Capa (≈ 30 segundos)**
+"Boa noite a todos os membros da banca. Gostaria de agradecer a presença e o tempo de vocês. Meu nome é Luiz Henrique, sou orientado pelo professor Doutor Ricardo Ciferri, e apresento hoje a minha monografia intitulada: 'Extração e classificação automática de transações em faturas de cartão de crédito com preservação de leiaute e agentes de linguagem em infraestrutura local'."
 
-```bash
-npm run start
-```
+**Slide 2: Contextualização e Problema (≈ 1,5 minutos)**
+"O problema que me motivou a desenvolver este trabalho é muito presente no nosso dia a dia: o controle financeiro pessoal. Hoje, a digitalização dos pagamentos gerou um volume enorme de dados. O problema é que as faturas de cartão de crédito chegam para o usuário com descrições curtas, cheias de abreviações, sufixos corporativos e prefixos de gateways de pagamento, como 'IFD*' ou 'PAG*'.
+Além desse ruído textual, existe um grande gargalo de engenharia e privacidade. Processar dados financeiros exige conformidade com a LGPD. Terceirizar a leitura de faturas para APIs proprietárias em nuvens públicas expõe a privacidade do titular. A dor que decidi resolver foi: como construir um sistema capaz de ler e categorizar essas faturas ruidosas, mas que rode de forma viável em uma infraestrutura totalmente local e privada?"
 
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
+**Slide 3: Objetivos (≈ 1 minuto)**
+"O objetivo geral desta pesquisa foi conceber, implementar e avaliar uma solução computacional de ponta a ponta para a extração, normalização e classificação automática dessas transações.
+Para isso, os objetivos específicos focaram em criar não apenas um modelo isolado, mas uma esteira real. Isso envolveu a ingestão de PDFs nativos com preservação de leiaute, normalização de dados, armazenamento vetorial e a criação de um agente inteligente orquestrado em grafos que pudesse escalar em hardware local, combinando Inteligência Artificial e a supervisão humana no ciclo."
 
-## Build
+**Slide 4: Estado da Arte / Trabalhos Correlatos (≈ 1 minuto)**
+"Durante a revisão da literatura, notei que existem muitos trabalhos que focam em partes isoladas do problema. Alguns estudos focam muito na melhoria da leitura de OCR, enquanto outros focam apenas na classificação textual de dados do Open Banking europeu.
+A grande lacuna do mercado que este trabalho ataca é a falta de soluções integradas. Praticamente não há registros de sistemas voltados para o ruído das faturas brasileiras que realizem o ciclo completo — da leitura do PDF à classificação semântica e governança MLOps — executando localmente sem depender de APIs comerciais pagas ou leiautes engessados."
 
-```bash
-npm run build
-```
+**Slide 5: Metodologia e Pipeline de Solução (≈ 3,5 minutos)** *[Aponte para a arquitetura aqui]*
+"Para resolver isso, estruturei a metodologia baseada no framework CRISP-DM estendido com práticas de MLOps. Criei uma arquitetura inspirada no *Data Lakehouse*, orientada a eventos e microsserviços via Docker.
+O fluxo funciona assim: a fatura entra pela nossa API e o evento é publicado no *Apache Kafka*. O armazenamento bruto imutável vai para o *MinIO*, que atua como nosso S3 local.
+Na extração, adotei uma quebra de paradigma: em vez de rasterizar a imagem para fazer o OCR tradicional, utilizei o *Docling V2* para fazer a extração nativa digital. Isso preserva a topologia da tabela, garantindo que o nome da loja não se misture com a coluna de valor.
+O cérebro do sistema é o agente que orquestrei usando o *LangGraph*. Ele recebe a transação, limpa os ruídos via expressões regulares e faz uma busca vetorial no nosso banco *PostgreSQL* com *pgvector*. Se a similaridade do vetor for menor que 85%, ele aciona um LLM local para raciocinar. Se a confiança do LLM for baixa, o sistema pausa e aciona um humano para aprovar, garantindo que a base de conhecimento cresça com qualidade."
 
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
+**Slide 6: Resultados Obtidos e Conclusão (≈ 2,5 minutos)**
+"Os resultados empíricos que obtivemos validaram a nossa arquitetura de engenharia de forma pragmática.
+Primeiro, na extração: a decisão de usar a preservação de leiaute com o *Docling* reduziu a taxa de erro de caracteres de absurdos 52,86% do OCR convencional para apenas 5,69%, aumentando o casamento exato das linhas de 3,3% para 86,2%.
+Na parte de classificação, eu tinha uma hipótese de atingir 85% de F1-Macro, mas obtivemos como melhor resultado 69,3% no teste cego de descrições desbalanceadas. E aqui está a descoberta mais valiosa da pesquisa para a Engenharia de Software: o modelo de representação esparsa clássica, o *TF-IDF com Random Forest*, igualou estatisticamente a busca por vetores densos e superou LLMs locais. Ele entregou a melhor performance custando apenas 0,28 milissegundos por inferência, uma fração minúscula do custo computacional das soluções mais pesadas.
+Concluo, portanto, que em cenários de baixo volume de dados rotulados, a sofisticação arquitetural de redes neurais gigantes não compensa. A solução construída provou ser funcional, auditável, de altíssimo custo-benefício computacional, resolvendo o problema real do usuário em infraestrutura 100% local, protegendo sua privacidade de ponta a ponta.
 
-## Deployment
+Muito obrigado, fico agora à disposição da banca."
 
-Using SSH:
+---
 
-```bash
-USE_SSH=true npm run deploy
-```
+**Dica de ouro para o ensaio:**
+Leia este roteiro em voz alta cronometrando o seu tempo. Se perceber que está falando rápido demais para caber nos 10 minutos, corte alguns detalhes (como mencionar o nome completo das métricas ou as casas decimais) e foque no fluxo da ideia.
 
-Not using SSH:
-
-```bash
-GIT_USER=<Your GitHub username> npm run deploy
-```
-
-If you are using GitHub Pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+Se sentiu confortável com a forma como as ideias técnicas foram encadeadas neste roteiro?
